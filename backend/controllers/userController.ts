@@ -78,7 +78,6 @@ export const deleteUser = async (req: Request, res: Response): Promise<any> => {
     if (deleteUserByID.affected === 0) {
       return res.json({ message: `No user found` });
     }
-    console.log(deleteUserByID);
 
     return res.status(200).json(`User deleted`);
   } catch (err) {

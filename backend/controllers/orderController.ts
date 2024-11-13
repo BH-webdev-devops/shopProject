@@ -69,11 +69,6 @@ export const getOrderById = async (req: Request, res: Response): Promise<any> =>
             return res.status(400).json({ error: "Missing or invalid 'id' parameter" });
         }
 
-        const profile: User  = await getProfile(userId)
-        if (profile.isAdmin == false && id != userId){
-        return res.status(403).json({message : `Function not available for your profile`})
-        }
-
         const orderByID = await orderRepository.find({where : {id: parseInt(id)}})
         if (orderByID.length < 1) {
             return res.json({ message: `No order found` })
@@ -151,7 +146,6 @@ export const updateOrderStatus = async (req: Request, res: Response): Promise<an
 
 export const deleteOrder = async (req: Request, res: Response): Promise<any> => {
     const { id } = req.params
-    console.log('IdOrde ' + id)
     try {
         const deleteOrderByID = await orderRepository.delete({id : parseInt(id)})
         if (deleteOrderByID.affected != 1) {
@@ -166,10 +160,9 @@ export const deleteOrder = async (req: Request, res: Response): Promise<any> => 
 }
 
 const getOrderInfo = async (idOrder: number): Promise<{ id: number; status: string; total: number, items: any[] }> => {
-    console.log('idOrder ' + idOrder)
+
     const orderByID = await orderRepository.find({where : {id: idOrder}})
     const items : Item[] = []
-    console.log('orderByID[0].id' + orderByID[0].id)
     const getItems = await orderProductRepository.find({
         where: { order: { id: orderByID[0].id }},
         relations: ['product']

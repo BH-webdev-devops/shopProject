@@ -24,26 +24,26 @@ export default function Profile() {
     return <p>Redirecting...</p>; 
   }
 
-  return (
-    <div className="flex min-h-screen flex-col justify-center items-center px-6 py-12 bg-gray-50">
-      <div className="sm:mx-auto sm:w-full sm:max-w-sm">
-        <Image
-          alt="User Profile"
-          src={`http://localhost:3001${user.photo}`}
-          width={100}
-          height={100}
-          className="mx-auto h-24 w-24 rounded-full"
-        />
-        <h2 className="mt-6 text-center text-2xl font-bold tracking-tight text-gray-900">
-          {user.name}
-        </h2>
-        <p className="mt-2 text-center text-sm text-gray-500">
-          ID: {user.id}
-        </p>
-        <p className="mt-1 text-center text-sm text-gray-500">
-          {user.email}
-        </p>
+    return (
+      <div className="flex min-h-screen flex-col justify-center items-center bg-black text-white px-6 py-12">
+        <div className="sm:mx-auto sm:w-full sm:max-w-sm bg-gray-900 rounded-lg shadow-lg p-8">
+          <h2 className="text-center text-3xl font-bold text-yellow-400 mb-4">
+            {user.name}
+          </h2>
+          <p className="mt-2 text-center text-lg text-gray-300">
+            ID: <span className="font-semibold text-white">{user.id}</span>
+          </p>
+          <p className="mt-1 text-center text-lg text-gray-300">
+            <span className="font-semibold text-white">{user.email}</span>
+          </p>
+          
+          {/* Add a button for better UX */}
+          <div className="mt-6 text-center">
+            <button className="bg-indigo-600 text-white px-6 py-3 rounded-lg hover:bg-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition">
+              Update Profile
+            </button>
+          </div>
+        </div>
       </div>
-    </div>
   );
 }

@@ -33,7 +33,6 @@ const Register = () => {
             }
 
             const response = await register(name, email, password)
-            console.log(response)
             if(response.message === 'User successfully registered'){
                 alert(response.message)
                 router.push('/')

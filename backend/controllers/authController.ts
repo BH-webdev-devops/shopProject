@@ -51,9 +51,13 @@ export const loginUser = async (req: Request, res: Response): Promise<any> => {
     return res.status(400).json({ message: 'Invalid email or password.' });
   }
 
-  const token = jwt.sign({ id: user.id }, process.env.JWT_SECRET as string, {
+  const token = jwt.sign({ id: user.id}, process.env.JWT_SECRET as string, {
     expiresIn: '1h',
   });
 
-  res.json({ token });
+  res.status(200).json({user : {
+      name : user.name,
+      isAdmin: user.isAdmin,
+      id: user.id
+  }, token})
 };

@@ -11,4 +11,10 @@ interface Product {
     }
 }
 
-export type {Product}
+interface Item {
+    product: Product
+    count : number;
+}
+
+
+export type {Product, Item}

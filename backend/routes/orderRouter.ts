@@ -10,7 +10,7 @@ authRouter.get("/orders", authenticateJWT, checkAdmin, getAllOrders)
 authRouter.get("/orders/:id", authenticateJWT, getOrderById)
 authRouter.post("/orders",  authenticateJWT, validateOrderRequest, addOrder)
 authRouter.put("/orders/:id",  authenticateJWT, validateOrderRequest, updateOrderProducts)
-authRouter.put("/orders/:id",  authenticateJWT, updateOrderStatus)
+authRouter.put("/orders/:id/status",  authenticateJWT, updateOrderStatus)
 authRouter.delete("/orders/:id",  authenticateJWT, deleteOrder)
 
 export default authRouter

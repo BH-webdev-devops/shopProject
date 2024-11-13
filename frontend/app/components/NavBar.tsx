@@ -1,16 +1,18 @@
-"use client";
+'use client';
 
-import { useState } from "react";
-import { Dialog, DialogPanel } from "@headlessui/react";
-import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
-import Link from "next/link";
+import { useState } from 'react';
+import { Dialog, DialogPanel } from '@headlessui/react';
+import { Bars3Icon, XMarkIcon, ShoppingCartIcon } from '@heroicons/react/24/outline';
+import { useAuth } from '../context/AuthContext';
+import Link from 'next/link';
 
-const navigation = [
-  { name: "Products", href: "/products" },
-  { name: "Contact", href: "/contact" },
-];
+const NavBar = () => {
+  const { user, loading, isAuthenticated, cart }: any = useAuth()
+  const navigation = [
+    { name: 'Contact', href: '/contact' },
+    ...(isAuthenticated && user ? [{ name: 'Manage Orders', href: '/orders' }] : []),
+  ];
 
-export default function NavBar() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   return (
@@ -29,28 +31,44 @@ export default function NavBar() {
             />
           </Link>
         </div>
-        <div className="hidden lg:flex lg:gap-x-12">
-          {navigation.map((item) => (
-            <Link key={item.name} href={item.href} className="text-sm font-semibold text-gray-900">
-              {item.name}
-            </Link>
-          ))}
-        </div>
         <div className="flex flex-1 items-center justify-end gap-x-6">
           <Link href="/contact" className="hidden text-sm font-semibold text-gray-900 lg:block">
             Contact
           </Link>
         </div>
+        
         <div className="flex flex-1 items-center justify-end gap-x-6">
-          <Link href="/login" className="hidden text-sm font-semibold text-gray-900 lg:block">
-            Log in
+        {isAuthenticated && user && (
+          <Link href="/orders" className="hidden text-sm font-semibold text-gray-900 lg:block">
+            Manage Orders
           </Link>
-          <Link
-            href="/register"
-            className="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-          >
-            Sign up
-          </Link>
+        )}
+        </div>
+
+        <div className="flex flex-1 items-center justify-end gap-x-6">
+          {!isAuthenticated && !loading && (
+            <>
+              <Link href="/login" className="hidden text-sm font-semibold text-gray-900 lg:block">
+                Log in
+              </Link>
+              <Link
+                href="/register"
+                className="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+              >
+                Sign up
+              </Link>
+            </>
+          )}
+          {isAuthenticated && !loading && (
+            <Link href="/cart" className="relative">
+              <ShoppingCartIcon className="h-6 w-6 text-gray-900" />
+              {cart && cart.length > 0 && (
+                <span className="absolute top-0 right-0 inline-flex items-center justify-center w-5 h-5 text-xs font-bold text-white bg-red-600 rounded-full">
+                  {cart.length}
+                </span>
+              )}
+            </Link>
+          )}
         </div>
         <div className="flex lg:hidden">
           <button
@@ -119,4 +137,6 @@ export default function NavBar() {
       </Dialog>
     </header>
   );
-}
+};
+
+export default NavBar;
