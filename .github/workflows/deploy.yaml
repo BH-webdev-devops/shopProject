@@ -21,6 +21,9 @@ jobs:
       - name: Install dependencies
         run: npm install
         working-directory: ./backend
+      
+      - name: Install nodemon globally
+        run: npm install -g nodemon
 
       - name: Start the server (if applicable)
         run: npm start &
