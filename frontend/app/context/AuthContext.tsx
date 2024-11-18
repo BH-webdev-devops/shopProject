@@ -5,6 +5,7 @@ import React, { createContext, useContext, useEffect, useState } from 'react';
 import { Product, Item } from '../types/interfaces'
 
 interface AuthContextType {
+  environment:string;
   user: any;
   isAuthenticated : boolean;
   loading : boolean;
@@ -25,11 +26,13 @@ interface AuthContextType {
 const AuthContext = createContext<AuthContextType | null>(null);
 
 export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
+  const host = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3000';
   const [user, setUser] = useState(null);
   const [isAuthenticated, setIsAuthenticated] = useState(false)
   const [loading, setLoading] = useState(true)
   const [products, setProducts] = useState<Product[]>([])
   const [cart, setCart] = useState<Item[]>([])
+  const [environment, setEnvironment] = useState(host);
 
   // Check if there is a token in localStorage on app load
   useEffect(() => {
@@ -41,9 +44,11 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     }
   }, []);
 
+  console.log('ENV ' + environment)
+
   // Register function
   const register = async (form: FormData) => {
-    const res = await fetch('http://localhost:3000/api/register', {
+    const res = await fetch(`${environment}/api/register`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: form,
@@ -58,7 +63,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 
   // Login function
   const login = async (email: string, password: string) => {
-    const res = await fetch('http://localhost:3000/api/login', {
+    const res = await fetch(`${environment}/api/login`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ email, password }),
@@ -78,7 +83,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 
   // Sent email
   const sentEmail = async (from: string, subject: string, text: string) => {
-    const res = await fetch('http://localhost:3000/api/send-email', {
+    const res = await fetch(`${environment}/api/send-email`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ from, subject, text }),
@@ -154,7 +159,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
       const token = localStorage.getItem('token')
       if (token) {
       try {
-        const res = await fetch(`http://localhost:3000/api/profile`, {
+        const res = await fetch(`${environment}/api/profile`, {
           method: 'GET',
           headers: { 'Authorization': `Bearer ${token}` }
         })
@@ -182,8 +187,9 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 
   const fetchProducts = async () => {
     try {
-        const response = await fetch(`http://localhost:3000/api/products/`)
+        const response = await fetch(`${environment}/api/products/`)
         const data = await response.json();
+        console.log(data)
         setProducts(data)
     }
     catch (err : any) {
@@ -194,7 +200,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const getOrders = async () => {
     const token = localStorage.getItem('token')
     try {
-        const res = await fetch('http://localhost:3000/api/users/orders', {
+        const res = await fetch(`${environment}/api/users/orders`, {
           method: 'GET',
           headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` }
         });
@@ -211,7 +217,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     const body = {userId: userId, items: cart}
     console.log ('body')
     console.log(body)
-    const res = await fetch('http://localhost:3000/api/orders/', {
+    const res = await fetch(`${environment}/api/orders/`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
       body: JSON.stringify(body),
@@ -221,7 +227,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   };
 
   return (
-    <AuthContext.Provider value = {{ user, isAuthenticated, loading, products, cart, sentEmail, login, register, logout, addNewItemToCart, reduceItemToCart, increaseItemToCart, createOrder, cleanCart, getOrders }}>
+    <AuthContext.Provider value = {{ environment, user, isAuthenticated, loading, products, cart, sentEmail, login, register, logout, addNewItemToCart, reduceItemToCart, increaseItemToCart, createOrder, cleanCart, getOrders }}>
       {children}
     </AuthContext.Provider>
   );

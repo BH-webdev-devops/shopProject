@@ -1,12 +1,14 @@
 'use client';
 
 import React, { useEffect, useState } from 'react';
+import '../envConfig.ts'
 import { useParams } from 'next/navigation';
 import { useRouter } from 'next/navigation'
 
 const OrderDetailPage: React.FC = () => {
     
     const { id } = useParams(); 
+    const environment = process.env.API_URL;
     const [orderData, setOrderData] = useState<any>(null);
     const [error, setError] = useState<string | null>(null);
     const token = localStorage.getItem('token')
@@ -31,7 +33,7 @@ const OrderDetailPage: React.FC = () => {
 
     const fetchOrder = async () => {
         try {
-            const res = await fetch('http://localhost:3000/api/orders/' + id, {
+            const res = await fetch(`${environment}/api/orders/` + id, {
               method: 'GET',
               headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` }
             });
@@ -45,7 +47,7 @@ const OrderDetailPage: React.FC = () => {
 
     const handleCancelOrder = async () => {
 
-        const res = await fetch('http://localhost:3000/api/orders/' + id + '/status', {
+        const res = await fetch('${environment}/api/orders/' + id + '/status', {
             method: 'PUT',
             headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
             body: JSON.stringify({ "status": "CANCELED"})
@@ -63,7 +65,7 @@ const OrderDetailPage: React.FC = () => {
 
     const handleDeleteOrder = async () => {
 
-        const res = await fetch('http://localhost:3000/api/orders/' + id, {
+        const res = await fetch('${environment}/api/orders/' + id, {
             method: 'DELETE',
             headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` }
           });
