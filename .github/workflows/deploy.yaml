@@ -21,9 +21,6 @@ jobs:
       - name: Install dependencies
         run: npm install
         working-directory: ./backend
-      
-      - name: Install nodemon globally
-        run: npm install -g nodemon
 
       - name: Start the server (if applicable)
         run: npm start &
@@ -34,9 +31,11 @@ jobs:
           DB_DATABASE: ${{ secrets.DB_DATABASE }}
           DB_USERNAME: ${{ secrets.DB_USERNAME }}
           DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
+          DB_TYPE: ${{ secrets.DB_TYPE }}
+          PORT: ${{ secrets.PORT }}
 
       - name: Wait for server to be ready
-        run: sleep 10
+        run: sleep 60
           
       - name: Check server health
         run: curl http://localhost:3000
