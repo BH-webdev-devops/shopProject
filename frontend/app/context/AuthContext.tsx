@@ -32,7 +32,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const [loading, setLoading] = useState(true)
   const [products, setProducts] = useState<Product[]>([])
   const [cart, setCart] = useState<Item[]>([])
-  const [environment, setEnvironment] = useState(host);
+  const [environment] = useState(host);
 
   // Check if there is a token in localStorage on app load
   useEffect(() => {
@@ -50,7 +50,6 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const register = async (form: FormData) => {
     const res = await fetch(`${environment}/api/register`, {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
       body: form,
     });
     const data = await res.json();

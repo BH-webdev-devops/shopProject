@@ -19,7 +19,7 @@ const OrderStatusPage: React.FC = () => {
                     setError(response.body?.message || "Something went wrong");
                 }
             } catch (err) {
-                setError("Failed to fetch orders");
+                setError("Failed to fetch orders" + err);
             }
         };
         fetchOrderData();

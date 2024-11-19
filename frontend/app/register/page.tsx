@@ -26,13 +26,14 @@ const Register = () => {
         try{
             const formData = new FormData();
             formData.append('name', name);
+            formData.append('email', email);
             formData.append('password', password);
 
             if (image) {
             formData.append('photo', image);
             }
 
-            const response = await register(name, email, password)
+            const response = await register(formData)
             if(response.message === 'User successfully registered'){
                 alert(response.message)
                 router.push('/')

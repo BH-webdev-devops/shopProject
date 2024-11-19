@@ -1,16 +1,11 @@
 'use client'
 
 import { useAuth } from "../context/AuthContext";
-import { Item, Product } from "../types/interfaces";
 import { useEffect } from "react";
-import {useRouter} from 'next/navigation'
+import { useRouter } from 'next/navigation'
+import Image from 'next/image';
 
-interface CartProps {
-  cart: Item[] | null;
-  setCart: React.Dispatch<React.SetStateAction<Item[] | null>>;
-}
-
-const Cart: React.FC<CartProps> = () => {
+const Cart: React.FC = () => {
 
     const { user, isAuthenticated, cart, reduceItemToCart, increaseItemToCart, createOrder, cleanCart }: any = useAuth()
     const router = useRouter()
@@ -19,7 +14,7 @@ const Cart: React.FC<CartProps> = () => {
         if (!isAuthenticated || !user) {
           router.push('/register');
         }
-      }, [isAuthenticated]);
+      }, [isAuthenticated, router, user]);
 
     const handleCheckout = async () => {
         if (cart && cart.length > 0) {
@@ -69,11 +64,13 @@ const Cart: React.FC<CartProps> = () => {
                     >
                         <div className="flex items-center justify-between mb-6">
                             <div className="flex items-center space-x-4">
-                                <img
-                                    src={item.product.image}
-                                    alt={item.product.title}
-                                    className="h-24 w-24 object-cover rounded-md"
-                                />
+                            <Image
+                                src={item.product.image}
+                                alt={item.product.title}
+                                width={96}
+                                height={96}
+                                className="object-cover rounded-md"
+                            />
                                 <div className="flex-1">
                                     <h3 className="text-lg font-semibold text-gray-300">{item.product.title}</h3>
                                     <p className="text-gray-400">{item.product.description}</p>

@@ -1,17 +1,14 @@
 'use client'
 
 
-import {useState, useEffect} from 'react'
+import {useState } from 'react'
 import { useAuth } from '../context/AuthContext'
-import { useRouter } from 'next/navigation'
 
 const Contact = () => {
     const [from, setFrom] = useState('')
     const [subject, setSubject] = useState('')
     const [text, setText] = useState('')
     const {sentEmail} : any = useAuth()
-    const router = useRouter()
-
     const handleSubmit = async (e : React.FormEvent) => {
         e.preventDefault()
         try{
