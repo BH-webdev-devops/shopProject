@@ -12,11 +12,10 @@ const OrderStatusPage: React.FC = () => {
         const fetchOrderData = async () => {
             try {
                 const response = await getOrders();
-                console.log(response)
                 if (response.status === 200) {
                     setOrderData(response.body);
                 } else if (response.status === 204){
-                    setError(response.body?.message);
+                    setError("Not orders found");
                 }
 
                 else {

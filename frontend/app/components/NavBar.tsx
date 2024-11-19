@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, } from 'react';
 import { Dialog, DialogPanel } from '@headlessui/react';
 import { Bars3Icon, XMarkIcon, ShoppingCartIcon } from '@heroicons/react/24/outline';
 import { useAuth } from '../context/AuthContext';
@@ -12,7 +12,7 @@ const NavBar = () => {
     { name: 'Contact', href: '/contact' },
     ...(isAuthenticated && user ? [{ name: 'Manage Orders', href: '/orders' }] : []),
   ];
-
+  console.log('Cart ' + cart.length)
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   return (

@@ -34,7 +34,7 @@ export const getAllOrders = async (req: Request, res: Response): Promise<any> =>
     }
     catch (err) {
         console.log(err)
-        return res.status(500).json({ error: `Internal server error 🔴` })
+        return res.status(500).json({ error: 'Internal server error 🔴' })
     }
 }
 
@@ -43,7 +43,7 @@ export const getUserOrders = async (req: Request, res: Response): Promise<any> =
         const userId = (req as Request & { user: any }).user.id
         const orders = await orderRepository.findBy({user: { id: userId }})
         if (orders.length < 1) {
-            return res.status(204).json({ message: `No orders found` })
+            return res.status(204).json({ message: 'No orders found' })
         }
         var ordersInfo: any[] = []
 
@@ -56,7 +56,7 @@ export const getUserOrders = async (req: Request, res: Response): Promise<any> =
     }
     catch (err) {
         console.log(err)
-        return res.status(500).json({ error: `Internal server error 🔴` })
+        return res.status(500).json({ error: 'Internal server error 🔴' })
     }
 }
 
@@ -71,14 +71,14 @@ export const getOrderById = async (req: Request, res: Response): Promise<any> =>
 
         const orderByID = await orderRepository.find({where : {id: parseInt(id)}})
         if (orderByID.length < 1) {
-            return res.status(204).json({ message: `No order found` })
+            return res.status(204).json({ message:'No order found' })
         }
 
         return res.status(200).json(await getOrderInfo(orderByID[0].id))
     }
     catch (err) {
         console.log(err)
-        return res.status(500).json({ error: `Internal server error 🔴` })
+        return res.status(500).json({ error: 'Internal server error 🔴' })
     }
 }
 
@@ -99,7 +99,7 @@ export const addOrder = async (req: Request, res: Response): Promise<any> => {
 
     catch (err) {
         console.log(err)
-        return res.status(500).json({ error: `Internal server error 🔴` })
+        return res.status(500).json({ error: 'Internal server error 🔴' })
     }
 }
 
@@ -120,7 +120,7 @@ export const updateOrderProducts = async (req: Request, res: Response): Promise<
     }
     catch (err) {
         console.log(err)
-        return res.status(500).json({ error: `Internal server error 🔴` })
+        return res.status(500).json({ error: 'Internal server error 🔴' })
     }
 }
 
@@ -139,7 +139,7 @@ export const updateOrderStatus = async (req: Request, res: Response): Promise<an
     }
     catch (err) {
         console.log(err)
-        return res.status(500).json({ error: `Internal server error 🔴` })
+        return res.status(500).json({ error: 'Internal server error 🔴' })
     }
 }
 
@@ -155,7 +155,7 @@ export const deleteOrder = async (req: Request, res: Response): Promise<any> => 
     }
     catch (err) {
         console.log(err)
-        return res.status(500).json({ error: `Internal server error 🔴` })
+        return res.status(500).json({ error: 'Internal server error 🔴' })
     }
 }
 

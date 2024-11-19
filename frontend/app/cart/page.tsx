@@ -35,7 +35,9 @@ const Cart: React.FC = () => {
         if (cart && cart.length > 0) {
             const res = await createOrder( user.id )
             if (res.status == 201) {
+                cleanCart()
                 alert("Thanks for your Order")
+                router.push('/orders');
             }
             else {
                 alert(res.body.message)

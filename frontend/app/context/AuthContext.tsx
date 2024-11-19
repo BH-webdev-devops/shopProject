@@ -203,7 +203,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
           method: 'GET',
           headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` }
         });
-        const response = await res.json();
+        const response = res.status === 200 ? await res.json() : '';
         return {status: res.status, body: response};
     }
     catch (err : any) {
