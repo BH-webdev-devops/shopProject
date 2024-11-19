@@ -66,13 +66,13 @@ const login = () => {
                         </div>
 
                         <div>
-                            <div className="flex items-center justify-between">
+                            <div className="flex items-center justify-between ">
                                 <label htmlFor="password" className="block text-sm/6 font-medium text-white">
                                     Password
                                 </label>
                                
                             </div>
-                            <div className="mt-2">
+                            <div className="mt-2 text-black ">
                                 <input
                                     id="password"
                                     name="password"
@@ -80,7 +80,7 @@ const login = () => {
                                     required
                                     onChange={e => setPassword(e.target.value) }
                                     autoComplete="current-password"
-                                    className="block w-full text-black rounded-md border-0 py-1.5 text-white shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm/6"
+                                    className="block w-full text-black rounded-md border-0 py-1.5 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm/6"
                                 />
                             </div>
                         </div>

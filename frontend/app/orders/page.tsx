@@ -15,7 +15,11 @@ const OrderStatusPage: React.FC = () => {
                 console.log(response)
                 if (response.status === 200) {
                     setOrderData(response.body);
-                } else {
+                } else if (response.status === 204){
+                    setError(response.body?.message);
+                }
+
+                else {
                     setError(response.body?.message || "Something went wrong");
                 }
             } catch (err) {
@@ -34,7 +38,7 @@ const OrderStatusPage: React.FC = () => {
         );
     }
 
-    if (!orderData) {
+    if ((!orderData || !Array.isArray(orderData)) && !error) {
         return <div>Loading...</div>;
     }
     else {

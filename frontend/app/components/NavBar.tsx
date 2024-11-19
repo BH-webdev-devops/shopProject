@@ -32,7 +32,7 @@ const NavBar = () => {
           </Link>
         </div>
         <div className="flex flex-1 items-center justify-end gap-x-6">
-          <Link href="/contact" className="hidden text-sm font-semibold text-gray-900 lg:block">
+          <Link href="/contact" className=" text-sm font-semibold text-gray-900 lg:block">
             Contact
           </Link>
         </div>
@@ -48,7 +48,7 @@ const NavBar = () => {
         <div className="flex flex-1 items-center justify-end gap-x-6">
           {!isAuthenticated && !loading && (
             <>
-              <Link href="/login" className="hidden text-sm font-semibold text-gray-900 lg:block">
+              <Link href="/login" className=" text-sm font-semibold text-gray-900 lg:block">
                 Log in
               </Link>
               <Link
@@ -70,18 +70,18 @@ const NavBar = () => {
             </Link>
           )}
         </div>
-        <div className="flex lg:hidden">
+        <div className="flex lg:">
           <button
             type="button"
             onClick={() => setMobileMenuOpen(true)}
             className="-m-2.5 inline-flex items-center justify-center rounded-md p-2.5 text-gray-700"
           >
             <span className="sr-only">Open main menu</span>
-            <Bars3Icon aria-hidden="true" className="h-6 w-6" />
+            <Bars3Icon aria-="true" className="h-6 w-6" />
           </button>
         </div>
       </nav>
-      <Dialog open={mobileMenuOpen} onClose={setMobileMenuOpen} className="lg:hidden">
+      <Dialog open={mobileMenuOpen} onClose={setMobileMenuOpen} className="lg:">
         <div className="fixed inset-0 z-10" />
         <DialogPanel className="fixed inset-y-0 right-0 z-10 w-full overflow-y-auto bg-white px-6 py-6 sm:max-w-sm sm:ring-1 sm:ring-gray-900/10">
           <div className="flex items-center gap-x-6">
@@ -105,7 +105,7 @@ const NavBar = () => {
               className="-m-2.5 rounded-md p-2.5 text-gray-700"
             >
               <span className="sr-only">Close menu</span>
-              <XMarkIcon aria-hidden="true" className="h-6 w-6" />
+              <XMarkIcon aria-="true" className="h-6 w-6" />
             </button>
           </div>
           <div className="mt-6 flow-root">

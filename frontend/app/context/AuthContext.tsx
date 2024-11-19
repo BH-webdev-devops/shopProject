@@ -26,7 +26,7 @@ interface AuthContextType {
 const AuthContext = createContext<AuthContextType | null>(null);
 
 export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
-  const host = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3000';
+  const host = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3001';
   const [user, setUser] = useState(null);
   const [isAuthenticated, setIsAuthenticated] = useState(false)
   const [loading, setLoading] = useState(true)
@@ -53,11 +53,11 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
       body: form,
     });
     const data = await res.json();
-    console.log(data)
     if (data.token) {
       localStorage.setItem('token', data.token);
        setUser(data.user);
     }
+    return data
   };
 
   // Login function

@@ -32,13 +32,13 @@ const Register = () => {
             if (image) {
             formData.append('photo', image);
             }
-
+        
             const response = await register(formData)
-            if(response.message === 'User successfully registered'){
+            if(response.status == 200){
                 alert(response.message)
                 router.push('/')
             }
-            else if(response.message === 'User already exists'){
+            else {
                 alert(response.message)
             }
         }
