@@ -1,5 +1,6 @@
 // middleware.ts
 import { Request, Response, NextFunction } from 'express';
+import multer from 'multer';
 
 // Logging middleware
 export const logger = (req: Request, res: Response, next: NextFunction) : void => {
