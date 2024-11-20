@@ -99,7 +99,7 @@ export const addOrder = async (req: Request, res: Response): Promise<any> => {
 
     catch (err) {
         console.log(err)
-        return res.status(500).json({ error: 'Internal server error 🔴' })
+        return res.status(500).json({ error: "Internal server error 🔴" })
     }
 }
 
