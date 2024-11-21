@@ -1,4 +1,4 @@
-name: CI/CD Pipeline for Next.js
+name: CI/CD Pipeline for Next.js in Vercel
 
 on:
   push:
